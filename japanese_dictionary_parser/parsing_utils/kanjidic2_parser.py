@@ -40,7 +40,7 @@ def process_kanjidic_node(node):
 
     variant = []
     for elem in node.findall("./misc/variant"):
-        stroke_count.append(
+        variant.append(
             Kanji_Description_Variant(
                 v_type=elem.get('var_type'),
                 value=elem.text,
