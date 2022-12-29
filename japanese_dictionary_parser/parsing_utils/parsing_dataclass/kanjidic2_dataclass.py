@@ -76,7 +76,7 @@ class Kanji(EmptyClass):
     kanji: str  # literal
     standard: field(default_factory=list[Kanji_CharacterStandard])  # codepoint (cp_value+)
     radical: field(default_factory=list[Kanji_Radical])  # radical (rad_value+)
-    description: field(default_factory=list[Kanji_Description])  # misc (grade?, stroke_count+, variant*, freq?, rad_name*,jlpt?)
+    description: Kanji_Description  # misc (grade?, stroke_count+, variant*, freq?, rad_name*,jlpt?)
     dictionary_number: field(default_factory=list[Kanji_DictionaryNumber])  # dic_number?
     query_code: field(default_factory=list[Kanji_QueryCode])  # query_code? (q_code+)
     rnm: field(default_factory=list[Kanji_RNM])  # reading_meaning? (rmgroup*, nanori*)
