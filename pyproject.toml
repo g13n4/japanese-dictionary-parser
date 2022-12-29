@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "japanese-dictionary-parser"
-version = "0.1.0"
+version = "0.1.1"
 description = "Parsers for japanese dictionaries: JMdict and kanjidic2"
 authors = ["Maxim R <joey-hzpfywtd@hotmail.com>"]
 readme = "README.md"
