@@ -64,20 +64,22 @@ def parse_xml(path, parsing_func, offset: int = 0, logger=None, test=False):
     return elements
 
 
-def _log(logger: logging, _method: str, message: str | Exception):
-    if logger:
-        if _method == 'critical':
-            logging.critical(message, exc_info=True)
+def _log(log_parsing: bool, logger: logging, _method: str, message: str | Exception):
+    if log_parsing:
+        if logger:
+            if _method == 'critical':
+                logging.critical(message, exc_info=True)
+            else:
+                _log_method = getattr(logging, _method)
+                _log_method(message)
         else:
-            _log_method = getattr(logging, _method)
-            _log_method(message)
-    else:
-        print(message)
+            print(message)
 
 
 class ParsingBase:
-    def __init__(self, path: str | pathlib.Path, logger: logging = None):
+    def __init__(self, path: str | pathlib.Path, log_parsing: bool = True, logger: logging = None):
         self.path = path
+        self.log_parsing = log_parsing
         self.logger = logger
         self.offset = None
         self._modify_offset()
@@ -93,16 +95,16 @@ class ParsingBase:
         root = tree.getroot()
 
         for idx, elem in enumerate(root[self.offset:]):
-            _log(self.logger, 'info', f'Parsing element - {idx}')
+            _log(self.log_parsing, self.logger, 'info', f'Parsing element - {idx}')
             try:
                 entry = self._parse_elem(elem, self.logger)
                 item_status = entry.children_status
                 for _status in item_status:
-                    _log(self.logger, 'info', _status)
-                _log(self.logger, 'info', f'Parsed element: {entry}')
+                    _log(self.log_parsing, self.logger, 'info', _status)
+                _log(self.log_parsing, self.logger, 'info', f'Parsed element: {entry}')
             except Exception as e:
                 entry = None
-                _log(self.logger, 'critical', e)
+                _log(self.log_parsing, self.logger, 'critical', e)
 
             yield entry
 
