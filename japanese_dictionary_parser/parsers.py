@@ -1,4 +1,4 @@
-from parsing_utils import process_kanjidic_node, process_jmdict_node, ParsingBase
+from .parsing_utils import process_kanjidic_node, process_jmdict_node, ParsingBase
 
 
 class KanjidicParser(ParsingBase):
