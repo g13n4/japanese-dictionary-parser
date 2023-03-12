@@ -39,7 +39,7 @@ def process_jmdict_node(node):
     reading_element = []
     for elem in node.findall("./r_ele"):
         value = elem.find("./reb").text
-        no_kanji = True if elem.find("./re_nokanji") else False
+        no_kanji = True if elem.find("./re_nokanji") is not None else False
 
         atk = []
         for sub_elem in elem.findall("./re_restr"):
